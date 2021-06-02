@@ -13,17 +13,27 @@ const validate = (inputs) => {
     errors.name = "Name is required!!!";
   }
   if (inputs.name && inputs.name !== undefined) {
-    let regx = !/^[a-zA-Z]*$/g.test(inputs.name);
+    let regx = /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test(inputs.name);
     if (regx === false) {
       errors.name = "Only character are allowed in name";
     }
   }
 
   if (
-    !inputs.message ||
-    (inputs.message.length < 0 && inputs.message !== undefined)
+    !inputs.country ||
+    (inputs.country.length < 0 && inputs.country !== undefined)
   ) {
-    errors.message = "Message is required!!!";
+    errors.country = "Country is required!!!";
+  }
+  if (inputs.country && inputs.country !== undefined) {
+    let regx = /^[a-zA-Z-,]+(\s{0,1}[a-zA-Z-, ])*$/.test(inputs.country);
+    if (regx === false) {
+      errors.name = "Only character are allowed in country";
+    }
+  }
+
+  if (!inputs.dob || (inputs.dob.length < 8 && inputs.dob !== undefined)) {
+    errors.dob = "Date of birth is required!!!";
   }
 
   return errors;

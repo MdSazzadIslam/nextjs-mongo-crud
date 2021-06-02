@@ -2,12 +2,16 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import validate from "../helpers/validate";
 import http from "../config";
+//import Countries from "../components/Countries";
 import styles from "./student.module.css";
+import axios from "axios";
 
-const createStudent = () => {
+const createStudent = ({ countries }) => {
   const [name, setName] = useState("");
+  const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");
-  const [message, setMessage] = useState("");
+  const [dob, setDob] = useState("");
+
   const [error, setError] = useState("");
   const [disabled, setDisabled] = useState(false);
   const [msg, setMsg] = useState("");
@@ -15,37 +19,43 @@ const createStudent = () => {
   const submitHandler = async (e) => {
     debugger;
     e.preventDefault();
-    if (name && email && message) {
+    if (name && country && email && dob) {
       try {
         setDisabled(true);
 
         const inputs = {
-          email: email,
           name: name,
-          message: message,
+          country: country,
+          email: email,
+          dob: dob,
         };
 
         const validation = await validate(inputs);
         debugger;
         if (
-          validation.email !== undefined ||
           validation.name !== undefined ||
-          validation.message !== undefined
+          validation.country !== undefined ||
+          validation.email !== undefined ||
+          validation.dob !== undefined
         ) {
-          if (validation.email) {
-            setError(validation.email);
-          }
           if (validation.name) {
             setError(validation.name);
           }
-          if (validation.message) {
-            setError(validation.message);
+          if (validation.country) {
+            setError(validation.country);
+          }
+          if (validation.email) {
+            setError(validation.email);
+          }
+
+          if (validation.dob) {
+            setError(validation.dob);
           }
           setDisabled(false);
           return;
         } else {
           setError("");
-          await saveContact(email, name, message);
+          await saveStudent(name, country, email, dob);
           setDisabled(false);
         }
       } catch (err) {
@@ -53,20 +63,21 @@ const createStudent = () => {
         setDisabled(false);
       }
     } else {
-      setError("Please Enter name, email and message.");
+      setError("Please Enter name, email country, date of birth.");
       setDisabled(false);
       return;
     }
   };
 
-  const saveContact = async (email, name, message) => {
+  const saveStudent = async (name, country, email, dob) => {
     debugger;
     try {
       await http
-        .post(process.env.API_URI + "contact", {
-          email: email,
+        .post(process.env.API_URI + "student", {
           name: name,
-          message: message,
+          email: email,
+          country: country,
+          dob: dob,
         })
         .then((res) => {
           setMsg(res.data.msg);
@@ -81,10 +92,16 @@ const createStudent = () => {
     }
   };
 
+  const countryHandler = (e) => {
+    console.log(e.target.value);
+  };
+
   const clearField = () => {
-    setMessage("");
+    setName("");
+    setCountry("");
     setEmail("");
-    setMessage();
+    setDob("");
+    setError("");
   };
 
   return (
@@ -92,7 +109,7 @@ const createStudent = () => {
       <div className={styles.contact}>
         <span style={{ color: "black", textAlign: "center" }}>{msg} </span>
         <form onSubmit={(e) => submitHandler(e)}>
-          <h2>Contact</h2>
+          <h2>Add</h2>
           {error !== "" ? (
             <div className="error">
               <span style={{ color: "red" }}>{error} </span>
@@ -109,18 +126,46 @@ const createStudent = () => {
               onChange={(e) => setName(e.target.value)}
             />
           </p>
+          <p type="Country">
+            {/*   <Countries
+              countries={props.countries}
+              onChange={(e) => countryHandler()}
+              placeholder="Select you country"
+              className={styles.inputbox}
+            /> */}
+
+            <select
+              className={styles.inputbox}
+              style={{ width: "100%" }}
+              onChange={(e) => setCountry(e.target.value)}
+              placeholder="Select you country"
+            >
+              {countries.map((country, index) => (
+                <option key={index} value={country.name}>
+                  {country.name}
+                </option>
+              ))}
+            </select>
+          </p>
+
           <p type="Email:">
             <input
-              placeholder="Let us know how to contact you back..."
+              type="text"
+              placeholder="Write your email here..."
               className={styles.inputbox}
+              name="email"
+              value={email}
               onChange={(e) => setEmail(e.target.value)}
             />
           </p>
-          <p type="Message:">
-            <textarea
-              placeholder="What would you like to tell..."
+          <p type="Date of birth:">
+            <input
+              type="date"
+              placeholder="Write your date of birth here..."
               className={styles.inputbox}
-              onChange={(e) => setMessage(e.target.value)}
+              name="dob"
+              value={dob}
+              onChange={(e) => setDob(e.target.value)}
             />
           </p>
           <button
@@ -128,17 +173,22 @@ const createStudent = () => {
             disabled={disabled}
             type="submit"
           >
-            Send Message
+            Submit
           </button>
-          <div className={styles.con_footer}>
-            <span className="fa fa-phone" />
-            +8801722536673
-            <span className="fa fa-envelope-o" /> netsazzad@gmail.com
-          </div>
         </form>
       </div>
     </Layout>
   );
+};
+
+export const getStaticProps = async () => {
+  const { data } = await axios.get(process.env.API_COUNTRIES);
+  //console.log(data);
+  return {
+    props: {
+      countries: data,
+    },
+  };
 };
 
 export default createStudent;
