@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import Layout from "../components/Layout";
 import validate from "../helpers/validate";
 import http from "../config";
-import styles from "./contact.module.css";
+import styles from "./student.module.css";
 
-const contact = () => {
+const createStudent = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
@@ -141,4 +141,4 @@ const contact = () => {
   );
 };
 
-export default contact;
+export default createStudent;

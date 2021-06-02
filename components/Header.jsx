@@ -11,8 +11,8 @@ const Header = () => {
         </Link>
       </div>
       <div className={styles.nav_menu}>
-        <Link href="/tech">
-          <a>Skills</a>
+        <Link href="/createStudent">
+          <a>Add</a>
         </Link>
         <Link href="/project">
           <a>Projects</a>
