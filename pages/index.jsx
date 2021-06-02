@@ -12,16 +12,14 @@ export default function Home({ students }) {
     debugger;
     try {
       await http
-        .post(process.env.API_URI + "student/" + `${id}`, {
-          id,
-        })
+        .delete(process.env.API_URI + id)
         .then((res) => {
+          console.log(res.data.msg);
           setMsg(res.data.msg);
-          res;
-          clearField();
+          return res;
         })
         .catch((err) => {
-          setError(err);
+          return setError(err);
         });
     } catch (error) {
       setError(error);
@@ -45,13 +43,22 @@ export default function Home({ students }) {
           deleteHandler={(e) => deleteHandler(e)}
         />
       </div>
+      <h4 className={styles.contact_me}>
+        Got any questions?
+        <a
+          href="https://sazzad-islam-88.vercel.app/"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span> Contact me.</span>
+        </a>
+      </h4>
     </Layout>
   );
 }
 
 export const getStaticProps = async () => {
   const { data } = await http.get(process.env.API_URI + "student");
-  console.log(data);
   return {
     props: {
       students: data,

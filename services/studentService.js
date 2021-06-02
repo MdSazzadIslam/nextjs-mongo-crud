@@ -9,7 +9,6 @@ class studentService {
   }
 
   async create(data) {
-    console.log("services", data);
     return await Student(data).save();
   }
 

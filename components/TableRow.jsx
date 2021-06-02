@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 import styles from "./studentList.module.css";
 const TableRow = ({ students, deleteHandler }) => {
   /*   const deleteHandler = (id) => {
@@ -18,6 +19,20 @@ const TableRow = ({ students, deleteHandler }) => {
             className={styles.delete_btn}
             onClick={(e) => deleteHandler(student._id)}
           />
+          <Link
+            className={styles.delete_btn}
+            href={{
+              pathname: "/createStudent",
+              query: {
+                id: student._id,
+                name: student.name,
+                country: student.country,
+                dob: student.dob,
+              },
+            }}
+          >
+            Edit
+          </Link>
         </li>
       ))}
     </>

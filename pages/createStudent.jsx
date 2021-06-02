@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import validate from "../helpers/validate";
 import http from "../config";
@@ -7,6 +8,13 @@ import styles from "./student.module.css";
 import axios from "axios";
 
 const createStudent = ({ countries }) => {
+  const router = useRouter();
+  console.log(router.query);
+
+  if (router.query == null || router.query == {} || router.query == "") {
+    console.log("Emtpy");
+  }
+
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
   const [email, setEmail] = useState("");

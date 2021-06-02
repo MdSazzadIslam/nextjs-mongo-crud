@@ -2,42 +2,30 @@ import connectDB from "../../db/connectDB";
 import studentService from "../../services/studentService";
 connectDB();
 export default async (req, res) => {
-  const { method } = req;
+  const {
+    method,
+    query: { id },
+  } = req;
+
   switch (method) {
-    case "POST":
+    case "DELETE":
       try {
-        const result = await studentService.create(req.body);
-        if (result) {
-          res.status(201).send({ success: true, msg: "Successfull" });
-        } else {
-          return res
-            .status(400)
-            .send({ success: false, msg: "Something went wrong" });
-        }
-      } catch (error) {
-        return res.status(500).send({ success: false, msg: error.message });
-      }
+        const isExists = await studentService.getById(id);
 
-      break;
-
-    case "PUT":
-      try {
-        const isExists = await studentService.getById(req.params.id);
         if (isExists) {
-          isExists.name = req.body.name;
-          const result = await studentService.update(req.params.id, isExists);
+          const result = await studentService.delete(id);
 
           if (result) {
-            res.status(200).send({ success: true, msg: "Successfull" });
+            res.status(201).send({ success: true, msg: "Successfull" });
           } else {
             return res
-              .status(204)
-              .send({ success: false, message: "Something went wrong" });
+              .status(400)
+              .send({ success: false, msg: "Something went wrong" });
           }
         } else {
           return res
             .status(404)
-            .send({ success: false, msg: "Product not found" });
+            .send({ success: false, msg: "No record found" });
         }
       } catch (error) {
         return res.status(500).send({ success: false, msg: error.message });
@@ -47,7 +35,7 @@ export default async (req, res) => {
 
     case "GET":
       try {
-        const result = await studentService.get();
+        const result = await studentService.getById(id);
         if (result) {
           res
             .status(201)
@@ -64,10 +52,11 @@ export default async (req, res) => {
       break;
 
     default:
-      res.setHeaders("Allow", ["GET", "POST"]);
+      res.setHeaders("Allow", ["GET", "PUT", "DELETE"]);
       return res
         .status(405)
         .json({ success: false })
         .end(`Method ${method} Not Allowed`);
+      break;
   }
 };
