@@ -9,13 +9,12 @@ import axios from "axios";
 
 const student = ({ countries }) => {
   const router = useRouter();
-  console.log(router.query);
+
   useEffect(() => {
     setName(router.query.name);
     setCountry(router.query.country);
     setEmail(router.query.email);
     setDob(router.query.dob);
-    console.log(router.query.country);
   }, [router.query]);
 
   const [name, setName] = useState("");
@@ -86,25 +85,38 @@ const student = ({ countries }) => {
     try {
       let url;
       if (router.query.id) {
-        url = process.env.API_URI + router.query.id;
+        await http
+          .put(process.env.API_URI + router.query.id, {
+            name: name,
+            email: email,
+            country: country,
+            dob: dob,
+          })
+          .then((res) => {
+            setMsg(res.data.msg);
+            res;
+            clearField();
+          })
+          .catch((err) => {
+            setError(err);
+          });
       } else {
-        url = process.env.API_URI + "student";
+        await http
+          .post(process.env.API_URI + "student", {
+            name: name,
+            email: email,
+            country: country,
+            dob: dob,
+          })
+          .then((res) => {
+            setMsg(res.data.msg);
+            res;
+            clearField();
+          })
+          .catch((err) => {
+            setError(err);
+          });
       }
-      await http
-        .post(url, {
-          name: name,
-          email: email,
-          country: country,
-          dob: dob,
-        })
-        .then((res) => {
-          setMsg(res.data.msg);
-          res;
-          clearField();
-        })
-        .catch((err) => {
-          setError(err);
-        });
     } catch (error) {
       setError(error);
     }
@@ -198,7 +210,7 @@ const student = ({ countries }) => {
 
 export const getStaticProps = async () => {
   const { data } = await axios.get(process.env.API_COUNTRIES);
-  console.log(data);
+  // console.log(data);
   return {
     props: {
       countries: data,
