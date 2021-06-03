@@ -11,7 +11,7 @@ export default function Home({ students }) {
   const deleteHandler = async (id) => {
     try {
       await http
-        .delete(process.env.API_URI + id)
+        .delete(id)
         .then((res) => {
           console.log(res.data.msg);
           setMsg(res.data.msg);
@@ -53,12 +53,12 @@ export default function Home({ students }) {
   );
 }
 
-/* export const getStaticProps = async () => {
-  const { data } = await http.get(process.env.API_URI + "student");
+export const getStaticProps = async () => {
+  const { data } = await http.get("student");
   return {
     props: {
       students: data,
       revalidate: 1,
     },
   };
-}; */
+};

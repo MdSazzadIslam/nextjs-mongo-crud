@@ -86,7 +86,7 @@ const student = ({ countries }) => {
       let url;
       if (router.query.id) {
         await http
-          .put(process.env.API_URI + router.query.id, {
+          .put(router.query.id, {
             name: name,
             email: email,
             country: country,
@@ -103,7 +103,7 @@ const student = ({ countries }) => {
           });
       } else {
         await http
-          .post(process.env.API_URI + "student", {
+          .post("student", {
             name: name,
             email: email,
             country: country,
