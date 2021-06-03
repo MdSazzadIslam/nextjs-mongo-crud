@@ -2,6 +2,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 Don't forget to give this repo a ⭐ if you like and want to appreciate my efforts
+This application is deployed on Netlify. Please check it out https://nextjs-mongo-crud.vercel.app/
 
 First, run the development server:
 
