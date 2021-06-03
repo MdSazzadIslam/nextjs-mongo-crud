@@ -1,10 +1,7 @@
 import axios from "axios";
 
 const service = axios.create({
-  baseURL:
-    process.env.environment === "production"
-      ? process.env.API_URI_PRODUCTION
-      : process.env.API_URI_DEVELOPEMENT,
+  baseURL: process.env.API_URI_PRODUCTION,
   timeout: 2000, // request timeout
 });
 
