@@ -3,7 +3,6 @@ import Layout from "../components/Layout";
 import styles from "../styles/Home.module.css";
 import StudentList from "../components/SudentList";
 import http from "../config";
-import axios from "axios";
 
 export default function Home({ students }) {
   const [msg, setMsg] = useState("");
@@ -14,7 +13,6 @@ export default function Home({ students }) {
       await http
         .delete(id)
         .then((res) => {
-          console.log(res.data.msg);
           setMsg(res.data.msg);
           return res;
         })
@@ -62,7 +60,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       students: res.data,
-      revalidate: 1,
+      revalidate: 30,
     },
   };
 };

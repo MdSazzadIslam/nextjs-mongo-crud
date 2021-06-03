@@ -6,7 +6,9 @@ export default async (req, res) => {
   switch (method) {
     case "POST":
       try {
+        console.log(req.body);
         const result = await studentService.create(req.body);
+        console.log(result);
         if (result) {
           res.status(201).send({ success: true, msg: "Successfull" });
         } else {

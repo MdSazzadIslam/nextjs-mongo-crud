@@ -92,6 +92,7 @@ const student = ({ countries }) => {
             dob: dob,
           })
           .then((res) => {
+            console.log(res.data.msg);
             setMsg(res.data.msg);
             res;
             clearField();
@@ -109,6 +110,7 @@ const student = ({ countries }) => {
             dob: dob,
           })
           .then((res) => {
+            console.log(res.data.msg);
             setMsg(res.data.msg);
             res;
             clearField();
