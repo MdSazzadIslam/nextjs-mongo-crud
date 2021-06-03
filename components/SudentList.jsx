@@ -11,7 +11,8 @@ const StudentList = ({ students, deleteHandler }) => {
             <th className={styles.header}>Country</th>
             <th className={styles.header}>DOB</th>
             <th className={styles.header}>Email</th>
-            <th className={styles.header}>Action</th>
+            <th className={styles.header}>Delete </th>
+            <th className={styles.header}>Edit </th>
           </tr>
         </thead>
         <tbody>

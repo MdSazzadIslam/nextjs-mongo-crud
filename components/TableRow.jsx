@@ -3,13 +3,10 @@ import Link from "next/link";
 import moment from "moment";
 import styles from "./studentList.module.css";
 const TableRow = ({ students, deleteHandler }) => {
-  /*   const deleteHandler = (id) => {
-    console.log(id);
-  }; */
   return (
     <>
       {students.map((student) => (
-        <tr className={styles.table_row} key={student._id}>
+        <tr key={student._id}>
           <td>{student.name}</td>
           <td>{student.country}</td>
 
