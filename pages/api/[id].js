@@ -37,11 +37,6 @@ export default async (req, res) => {
       try {
         const isExists = await studentService.getById(id);
         if (isExists) {
-          isExists.name = req.body.name;
-          isExists.country = req.body.country;
-          isExists.email = req.body.email;
-          isExists.dob = req.body.dob;
-
           const result = await studentService.update(id, req.body);
 
           if (result) {

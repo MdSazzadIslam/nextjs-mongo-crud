@@ -3,6 +3,7 @@ import Layout from "../components/Layout";
 import styles from "../styles/Home.module.css";
 import StudentList from "../components/SudentList";
 import http from "../config";
+import axios from "axios";
 
 export default function Home({ students }) {
   const [msg, setMsg] = useState("");
@@ -37,7 +38,10 @@ export default function Home({ students }) {
           ""
         )}
 
-        <StudentList students={[]} deleteHandler={(e) => deleteHandler(e)} />
+        <StudentList
+          students={students.data}
+          deleteHandler={(e) => deleteHandler(e)}
+        />
       </div>
       <h4 className={styles.contact_me}>
         Got any questions?
