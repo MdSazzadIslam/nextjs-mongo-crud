@@ -2,6 +2,10 @@
   text-align: center;
 }
 
+.responsive_table {
+  border-collapse: separate;
+  border-spacing: 0.25em 1em;
+}
 .responsive_table h1 {
   color: #c00;
   font-family: sans-serif;
@@ -20,10 +24,6 @@
   color: #fff;
 }
 
-.responsive_table {
-  border-collapse: separate;
-  border-spacing: 0.25em 1em;
-}
 .delete_btn {
   border-radius: 50%;
   border: none;

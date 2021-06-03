@@ -62,6 +62,7 @@ export const getStaticProps = async () => {
   return {
     props: {
       students: data,
+      revalidate: 1,
     },
   };
 };
