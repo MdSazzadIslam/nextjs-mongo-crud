@@ -4,7 +4,7 @@ const StudentList = ({ students, deleteHandler }) => {
   return (
     <div className={styles.list_container}>
       <h2>Total {students.length} records found</h2>
-      <table class={styles.responsive_table}>
+      <table className={styles.responsive_table}>
         <thead>
           <tr>
             <th className={styles.header}>Name</th>

@@ -9,7 +9,6 @@ export default function Home({ students }) {
   const [error, setError] = useState("");
 
   const deleteHandler = async (id) => {
-    debugger;
     try {
       await http
         .delete(process.env.API_URI + id)
