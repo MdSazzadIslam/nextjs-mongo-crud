@@ -3,6 +3,7 @@ import Link from "next/link";
 import moment from "moment";
 import styles from "./studentList.module.css";
 const TableRow = ({ students, deleteHandler }) => {
+  console.log(students);
   return (
     <>
       {students.map((student) => (

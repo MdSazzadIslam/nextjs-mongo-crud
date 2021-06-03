@@ -25,7 +25,7 @@ export default async (req, res) => {
         const result = await studentService.get();
         if (result) {
           res
-            .status(201)
+            .status(200)
             .send({ success: true, msg: "Successfull", data: result });
         } else {
           return res

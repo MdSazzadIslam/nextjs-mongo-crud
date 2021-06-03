@@ -58,10 +58,10 @@ export default function Home({ students }) {
 }
 
 export const getStaticProps = async () => {
-  const { data } = await http.get("student");
+  const res = await http.get("student");
   return {
     props: {
-      students: data,
+      students: res.data,
       revalidate: 1,
     },
   };
