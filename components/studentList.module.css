@@ -1,52 +1,30 @@
 .list_container {
-  max-width: 1000px;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 10px;
-  padding-right: 10px;
-}
-
-.list_container h2 {
-  font-size: 26px;
-  margin: 20px 0;
   text-align: center;
 }
 
-.responsive_table li {
-  border-radius: 3px;
-  padding: 25px 30px;
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 25px;
+.responsive_table h1 {
+  color: #c00;
+  font-family: sans-serif;
+  font-size: 2em;
+  margin-bottom: 0;
 }
-.table_header {
-  background-color: #95a5a6;
-  font-size: 14px;
-  text-transform: uppercase;
-  letter-spacing: 0.03em;
+
+.responsive_table table {
+  font-family: sans-serif;
 }
-.table_row {
-  background-color: #ffffff;
-  box-shadow: 0px 0px 9px 0px rgba(0, 0, 0, 0.1);
+.responsive_table td {
+  background-color: #eee;
 }
-.col-1 {
-  flex-basis: 10%;
+.responsive_table th {
+  background-color: #009;
+  color: #fff;
 }
-.col-2 {
-  flex-basis: 40%;
-}
-.col-3 {
-  flex-basis: 25%;
-}
-.col-4 {
-  flex-basis: 25%;
+
+.responsive_table {
+  border-collapse: separate;
+  border-spacing: 0.25em 1em;
 }
 .delete_btn {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 70px;
   border-radius: 50%;
   border: none;
   transition-duration: 0.5s;
@@ -59,21 +37,4 @@
   cursor: pointer;
   color: black;
   background-color: red;
-}
-
-@media all and (max-width: 767px) {
-  .table-header {
-    display: none;
-  }
-
-  .li {
-    display: block;
-  }
-  .col {
-    flex-basis: 100%;
-  }
-  .col {
-    display: flex;
-    padding: 10px 0;
-  }
 }

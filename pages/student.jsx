@@ -96,6 +96,7 @@ const student = ({ countries }) => {
             setMsg(res.data.msg);
             res;
             clearField();
+            router.push("/");
           })
           .catch((err) => {
             setError(err);

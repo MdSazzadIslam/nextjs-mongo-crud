@@ -9,34 +9,37 @@ const TableRow = ({ students, deleteHandler }) => {
   return (
     <>
       {students.map((student) => (
-        <li className={styles.table_row} key={student._id}>
-          <div>{student.name}</div>
-          <div>{student.country}</div>
-          <div>{student.email}</div>
-          <div>{moment(student.dob).format("MMM DD, YYYY")}</div>
-          <input
-            type="button"
-            value="delete"
-            className={styles.delete_btn}
-            onClick={(e) => deleteHandler(student._id)}
-          />
+        <tr className={styles.table_row} key={student._id}>
+          <td>{student.name}</td>
+          <td>{student.country}</td>
 
-          <Link
-            className={styles.delete_btn}
-            href={{
-              pathname: "/student",
-              query: {
-                id: student._id,
-                name: student.name,
-                country: student.country,
-                email: student.email,
-                dob: moment(student.dob).format("yyyy-MM-DD"),
-              },
-            }}
-          >
-            Edit
-          </Link>
-        </li>
+          <td>{moment(student.dob).format("MMM DD, YYYY")}</td>
+          <td>{student.email}</td>
+          <td>
+            <input
+              type="button"
+              value="delete"
+              className={styles.delete_btn}
+              onClick={(e) => deleteHandler(student._id)}
+            />
+          </td>
+          <td className={styles.delete_btn}>
+            <Link
+              href={{
+                pathname: "/student",
+                query: {
+                  id: student._id,
+                  name: student.name,
+                  country: student.country,
+                  email: student.email,
+                  dob: moment(student.dob).format("yyyy-MM-DD"),
+                },
+              }}
+            >
+              Edit
+            </Link>
+          </td>
+        </tr>
       ))}
     </>
   );
