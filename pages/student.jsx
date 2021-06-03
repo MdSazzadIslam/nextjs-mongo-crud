@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import Layout from "../components/Layout";
 import validate from "../helpers/validate";
@@ -7,13 +7,16 @@ import http from "../config";
 import styles from "./student.module.css";
 import axios from "axios";
 
-const createStudent = ({ countries }) => {
+const student = ({ countries }) => {
   const router = useRouter();
   console.log(router.query);
-
-  if (router.query == null || router.query == {} || router.query == "") {
-    console.log("Emtpy");
-  }
+  useEffect(() => {
+    setName(router.query.name);
+    setCountry(router.query.country);
+    setEmail(router.query.email);
+    setDob(router.query.dob);
+    console.log(router.query.country);
+  }, [router.query]);
 
   const [name, setName] = useState("");
   const [country, setCountry] = useState("");
@@ -63,7 +66,8 @@ const createStudent = ({ countries }) => {
           return;
         } else {
           setError("");
-          await saveStudent(name, country, email, dob);
+
+          await saveOrUpdateStudent(name, country, email, dob);
           setDisabled(false);
         }
       } catch (err) {
@@ -77,11 +81,17 @@ const createStudent = ({ countries }) => {
     }
   };
 
-  const saveStudent = async (name, country, email, dob) => {
+  const saveOrUpdateStudent = async (name, country, email, dob) => {
     debugger;
     try {
+      let url;
+      if (router.query.id) {
+        url = process.env.API_URI + router.query.id;
+      } else {
+        url = process.env.API_URI + "student";
+      }
       await http
-        .post(process.env.API_URI + "student", {
+        .post(url, {
           name: name,
           email: email,
           country: country,
@@ -98,10 +108,6 @@ const createStudent = ({ countries }) => {
     } catch (error) {
       setError(error);
     }
-  };
-
-  const countryHandler = (e) => {
-    console.log(e.target.value);
   };
 
   const clearField = () => {
@@ -146,10 +152,11 @@ const createStudent = ({ countries }) => {
               className={styles.inputbox}
               style={{ width: "100%" }}
               onChange={(e) => setCountry(e.target.value)}
-              placeholder="Select you country"
+              name="country"
+              value={country}
             >
               {countries.map((country, index) => (
-                <option key={index} value={country.name}>
+                <option key={index} value={country.value}>
                   {country.name}
                 </option>
               ))}
@@ -181,7 +188,7 @@ const createStudent = ({ countries }) => {
             disabled={disabled}
             type="submit"
           >
-            Submit
+            {router.query.name ? "Update" : "Save"}
           </button>
         </form>
       </div>
@@ -191,7 +198,7 @@ const createStudent = ({ countries }) => {
 
 export const getStaticProps = async () => {
   const { data } = await axios.get(process.env.API_COUNTRIES);
-  //console.log(data);
+  console.log(data);
   return {
     props: {
       countries: data,
@@ -199,4 +206,4 @@ export const getStaticProps = async () => {
   };
 };
 
-export default createStudent;
+export default student;
