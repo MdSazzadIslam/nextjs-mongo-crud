@@ -2,7 +2,7 @@ import axios from "axios";
 
 const service = axios.create({
   baseURL: process.env.API_URI_PRODUCTION,
-  timeout: 2000, // request timeout
+  timeout: 20000, // request timeout
 });
 
 // request interceptor

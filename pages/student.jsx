@@ -83,7 +83,6 @@ const student = ({ countries }) => {
   const saveOrUpdateStudent = async (name, country, email, dob) => {
     debugger;
     try {
-      let url;
       if (router.query.id) {
         await http
           .put(router.query.id, {
