@@ -37,7 +37,10 @@ export default function Home({ students }) {
           ""
         )}
 
-        <StudentList students={[]} deleteHandler={(e) => deleteHandler(e)} />
+        <StudentList
+          students={students}
+          deleteHandler={(e) => deleteHandler(e)}
+        />
       </div>
       <h4 className={styles.contact_me}>
         Got any questions?
@@ -53,7 +56,7 @@ export default function Home({ students }) {
   );
 }
 
-/* export const getStaticProps = async () => {
+export const getStaticProps = async () => {
   const { data } = await http.get(process.env.API_URI + "student");
   return {
     props: {
@@ -61,4 +64,4 @@ export default function Home({ students }) {
       revalidate: 1,
     },
   };
-}; */
+};
